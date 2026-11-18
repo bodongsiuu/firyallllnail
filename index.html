@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesan Perdamaian &amp; Voucher Jajanan 📩🍫</title>
+    <title>Pesan Perdamaian untuk Firyal Naila 📩✨</title>
 
     <!-- Google Fonts: Quicksand (Judul) & Plus Jakarta Sans (Isi Teks) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,6 +38,10 @@
                             DEFAULT: '#FF6B8B',
                             hover: '#F25477',
                             light: '#FF94AC',
+                        },
+                        caramel: {
+                            DEFAULT: '#D98A4E',
+                            light: '#F5DFC8',
                         }
                     }
                 }
@@ -60,7 +64,7 @@
             font-family: 'Quicksand', sans-serif;
         }
 
-        /* Layer Partikel Latar Belakang: Dijamin tidak pernah menghalangi klik */
+        /* Layer Partikel Latar Belakang: Dijamin tidak menghalangi klik */
         #bg-particles-container {
             position: fixed;
             inset: 0;
@@ -95,14 +99,14 @@
             }
         }
 
-        /* Animasi Maskot Mengayun Lembut */
+        /* Animasi Delegasi Boneka Mengayun Lembut */
         @keyframes gentleSway {
-            0%, 100% { transform: rotate(-2deg) translateY(0px); }
-            50% { transform: rotate(2deg) translateY(-4px); }
+            0%, 100% { transform: rotate(-1.5deg) translateY(0px); }
+            50% { transform: rotate(1.5deg) translateY(-3px); }
         }
 
         .mascot-sway {
-            animation: gentleSway 3.2s ease-in-out infinite;
+            animation: gentleSway 3.4s ease-in-out infinite;
             transform-origin: bottom center;
         }
 
@@ -114,7 +118,20 @@
 
         .white-flag-wave {
             animation: whiteFlagWave 1.9s ease-in-out infinite;
-            transform-origin: 54px 132px;
+            transform-origin: 48px 104px;
+        }
+
+        /* Animasi Membal Lucu Saat Boneka Diklik */
+        @keyframes plushiePop {
+            0% { transform: scale(1) rotate(0deg); }
+            30% { transform: scale(1.14) rotate(-4deg); }
+            60% { transform: scale(0.95) rotate(3deg); }
+            80% { transform: scale(1.05) rotate(-1deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .plushie-bounce {
+            animation: plushiePop 0.52s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         /* Transisi Antar Tahap */
@@ -136,8 +153,8 @@
            ================================================================= */
         .hero-envelope {
             position: relative;
-            width: 224px;
-            height: 138px;
+            width: 236px;
+            height: 142px;
             margin: 0 auto;
             perspective: 900px;
             cursor: pointer;
@@ -159,7 +176,7 @@
             left: 14px;
             right: 14px;
             top: 14px;
-            height: 108px;
+            height: 112px;
             background: #FFFDF9;
             border: 1.5px solid #FFD1DC;
             border-radius: 12px;
@@ -170,7 +187,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding-top: 12px;
+            padding-top: 11px;
         }
 
         .hero-envelope.is-opening .hero-letter-sheet {
@@ -184,7 +201,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 78px;
+            height: 80px;
             transform-origin: top center;
             transform-style: preserve-3d;
             z-index: 4;
@@ -199,7 +216,7 @@
         /* Segel Stiker Bintang & Coklat pada Amplop */
         .envelope-seal {
             position: absolute;
-            top: 52px;
+            top: 54px;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 5;
@@ -221,20 +238,20 @@
             animation: rosePulse 2.4s infinite;
         }
 
-        /* Kartu Jajanan Interaktif */
-        .treat-card {
+        /* Kartu Boneka & Kartu Jajanan Interaktif */
+        .interactive-item-card {
             transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .treat-card:hover {
+        .interactive-item-card:hover {
             transform: translateY(-2px);
         }
 
-        .treat-card:active {
-            transform: scale(0.97);
+        .interactive-item-card:active {
+            transform: scale(0.96);
         }
 
-        .treat-card.tasted {
+        .interactive-item-card.activated {
             background: linear-gradient(145deg, #FFF5F7 0%, #FFE8EE 100%);
             border-color: #FF6B8B;
             box-shadow: 0 6px 18px rgba(255, 107, 139, 0.16);
@@ -305,7 +322,7 @@
         }
     </style>
 </head>
-<body class="relative flex items-center justify-center p-4 sm:p-6 selection:bg-blush-200 selection:text-choco">
+<body class="relative flex items-center justify-center p-3.5 sm:p-6 selection:bg-blush-200 selection:text-choco">
 
     <!-- Canvas Perayaan Konfeti Bintang, Sakura, Coklat & Mochi (Tahap 3) -->
     <canvas id="celebration-canvas" class="fixed inset-0 pointer-events-none z-40"></canvas>
@@ -324,7 +341,7 @@
     <!-- =====================================================================
          KARTU UTAMA SINGLE-PAGE INTERAKTIF (TANPA OVERFLOW TERPOTONG)
          ===================================================================== -->
-    <main class="relative z-10 w-full max-w-md mx-auto my-auto">
+    <main class="relative z-10 w-full max-w-lg mx-auto my-auto">
 
         <!-- Indikator Progres 3 Tahap -->
         <div class="flex items-center justify-center gap-2 mb-3">
@@ -334,7 +351,7 @@
         </div>
 
         <!-- Kontainer Kartu Utama (overflow: visible agar animasi surat & tombol tidak terpotong) -->
-        <div class="bg-cream/95 backdrop-blur-md border-2 border-[#F5D5DC] rounded-[2rem] shadow-[0_20px_50px_rgba(78,42,30,0.12)] p-5 sm:p-7 relative">
+        <div class="bg-white/95 backdrop-blur-md border-2 border-[#F5D5DC] rounded-[2rem] shadow-[0_20px_50px_rgba(78,42,30,0.12)] p-4 sm:p-7 relative">
 
             <!-- Lapisan Dekorasi Sudut Pastel (Terisolasi agar tidak memotong konten) -->
             <div class="absolute inset-0 rounded-[2rem] overflow-hidden pointer-events-none" aria-hidden="true">
@@ -343,111 +360,145 @@
             </div>
 
             <!-- ===============================================================
-                 TAHAP 1: LAYAR PEMBUKA & AMPLOP INTERAKTIF
+                 TAHAP 1: LAYAR PEMBUKA, DELEGASI 5 BONEKA & AMPLOP INTERAKTIF
                  =============================================================== -->
             <section id="stage-1" class="stage-section active relative z-10 text-center">
                 <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blush-100 border border-blush-200 text-choco text-xs font-extrabold tracking-wide mb-2">
-                    <span>Misi Perdamaian ✨</span>
+                    <span>Misi Perdamaian Khusus ✨</span>
                 </div>
 
-                <!-- Ilustrasi SVG Maskot Menggemaskan + Bendera Putih + Keranjang Beryl's, Nabati, Mochi -->
-                <div class="w-48 h-40 mx-auto my-1 mascot-sway">
-                    <svg viewBox="0 0 260 220" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-sm">
-                        <ellipse cx="135" cy="204" rx="72" ry="10" fill="#F3D3DB" opacity="0.75"/>
+                <!-- Delegasi Mini 5 Boneka Kesayangan Firyal Membawa Bendera Damai -->
+                <div class="w-full max-w-[330px] h-32 mx-auto my-1 mascot-sway">
+                    <svg viewBox="0 0 360 140" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-xs">
+                        <!-- Bayangan Lantai Pastel -->
+                        <ellipse cx="185" cy="128" rx="152" ry="8" fill="#F3D3DB" opacity="0.75"/>
 
-                        <!-- Bendera Putih Kecil -->
+                        <!-- Bendera Putih Kecil dengan Bintang Emas -->
                         <g class="white-flag-wave">
-                            <line x1="56" y1="142" x2="34" y2="56" stroke="#8D5B4C" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M35 58C22 54 11 61 1 56V86C11 91 22 84 35 88V58Z" fill="#FFFDF9" stroke="#D9B6BE" stroke-width="2.2" stroke-linejoin="round"/>
-                            <path d="M19 66L20.4 69.6L24 71L20.4 72.4L19 76L17.6 72.4L14 71L17.6 69.6L19 66Z" fill="#FF6B8B"/>
+                            <line x1="48" y1="104" x2="26" y2="30" stroke="#8D5B4C" stroke-width="3.5" stroke-linecap="round"/>
+                            <path d="M27 32C17 29 9 35 2 31V55C9 59 17 53 27 56V32Z" fill="#FFFDF9" stroke="#D9B6BE" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M14.5 38L15.7 41.2L19 42.4L15.7 43.6L14.5 46.8L13.3 43.6L10 42.4L13.3 41.2L14.5 38Z" fill="#D98A4E"/>
                         </g>
 
-                        <!-- Telinga Maskot -->
-                        <path d="M92 64C84 39 98 27 115 44" fill="#FFFFFF" stroke="#D8B4BC" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M97 59C92 44 100 38 110 48" fill="#FFD1DC"/>
-
-                        <path d="M178 64C186 39 172 27 155 44" fill="#FFFFFF" stroke="#D8B4BC" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M173 59C178 44 170 38 160 48" fill="#FFD1DC"/>
-
-                        <!-- Badan & Kepala Maskot -->
-                        <path d="M92 128C88 162 102 192 135 192C168 192 182 162 178 128C175 108 158 100 135 100C112 100 95 108 92 128Z" fill="#FFFFFF" stroke="#D8B4BC" stroke-width="3.5"/>
-                        <ellipse cx="135" cy="82" rx="52" ry="43" fill="#FFFFFF" stroke="#D8B4BC" stroke-width="3.5"/>
-
-                        <!-- Ekspresi Ramah & Sopan -->
-                        <path d="M107 67C111 64 117 64 121 67" stroke="#6B3E2E" stroke-width="2.6" stroke-linecap="round"/>
-                        <path d="M163 67C159 64 153 64 149 67" stroke="#6B3E2E" stroke-width="2.6" stroke-linecap="round"/>
-
-                        <circle cx="114" cy="80" r="7.2" fill="#4E2A1E"/>
-                        <circle cx="111.5" cy="77.5" r="2.6" fill="#FFFFFF"/>
-                        <circle cx="116.5" cy="82.5" r="1.2" fill="#FFFFFF"/>
-
-                        <circle cx="156" cy="80" r="7.2" fill="#4E2A1E"/>
-                        <circle cx="153.5" cy="77.5" r="2.6" fill="#FFFFFF"/>
-                        <circle cx="158.5" cy="82.5" r="1.2" fill="#FFFFFF"/>
-
-                        <ellipse cx="100" cy="89" rx="8.5" ry="4.5" fill="#FFB3C6" opacity="0.75"/>
-                        <ellipse cx="170" cy="89" rx="8.5" ry="4.5" fill="#FFB3C6" opacity="0.75"/>
-
-                        <ellipse cx="135" cy="87" rx="3.8" ry="2.6" fill="#8D5B4C"/>
-                        <path d="M127 94C131 99 139 99 143 94" stroke="#6B3E2E" stroke-width="2.6" stroke-linecap="round"/>
-
-                        <!-- Keranjang Jajanan Favorit -->
-                        <g transform="translate(82, 112)">
-                            <path d="M16 32C16 8 90 8 90 32" stroke="#A47148" stroke-width="4" stroke-linecap="round" fill="none"/>
-
-                            <!-- Coklat Beryl's -->
-                            <g transform="translate(12, 12) rotate(-10)">
-                                <rect x="0" y="0" width="32" height="36" rx="4" fill="#9B1C31" stroke="#D4AF37" stroke-width="1.8"/>
-                                <rect x="3" y="4" width="26" height="12" rx="2" fill="#D4AF37"/>
-                                <text x="16" y="12.5" text-anchor="middle" fill="#4E2A1E" font-size="6.5" font-weight="bold" font-family="serif">Beryl's</text>
-                                <circle cx="16" cy="24" r="4.5" fill="#4E2A1E"/>
-                            </g>
-
-                            <!-- Nabati Coklat -->
-                            <g transform="translate(38, 6)">
-                                <rect x="0" y="4" width="30" height="38" rx="4" fill="#C81E1E" stroke="#4E2A1E" stroke-width="1.6"/>
-                                <rect x="2" y="13" width="26" height="11" rx="3" fill="#FACC15"/>
-                                <text x="15" y="21" text-anchor="middle" fill="#9B1C1C" font-size="6.5" font-weight="900" font-family="sans-serif">nabati</text>
-                                <rect x="17" y="-3" width="9" height="10" rx="1.5" transform="rotate(12 17 -3)" fill="#D97706" stroke="#4E2A1E" stroke-width="1"/>
-                                <line x1="17" y1="1" x2="25" y2="3" stroke="#4E2A1E" stroke-width="1.5"/>
-                            </g>
-
-                            <!-- Mochi Puncak -->
-                            <g transform="translate(64, 14) rotate(9)">
-                                <rect x="0" y="6" width="32" height="28" rx="4" fill="#FDE68A" stroke="#B45309" stroke-width="1.6"/>
-                                <rect x="0" y="16" width="32" height="12" fill="#FF6B8B"/>
-                                <text x="16" y="24" text-anchor="middle" fill="#FFFDF9" font-size="5.5" font-weight="bold">MOCHI</text>
-                                <circle cx="10" cy="6" r="5.5" fill="#FFFDF9" stroke="#E5D3C8" stroke-width="1.2"/>
-                                <circle cx="21" cy="6" r="5.5" fill="#FFFDF9" stroke="#E5D3C8" stroke-width="1.2"/>
-                                <circle cx="10" cy="5" r="0.8" fill="#8D5B4C"/>
-                                <circle cx="21" cy="5" r="0.8" fill="#8D5B4C"/>
-                            </g>
-
-                            <!-- Badan Keranjang -->
-                            <path d="M8 32H98L90 68C89 73 84 76 79 76H27C22 76 17 73 16 68L8 32Z" fill="#C68B59" stroke="#6B3E2E" stroke-width="2.5" stroke-linejoin="round"/>
-                            <path d="M11 44H95M14 56H92M30 32L34 76M53 32V76M76 32L72 76" stroke="#8D5B4C" stroke-width="1.6" stroke-linecap="round"/>
-                            <circle cx="53" cy="48" r="5" fill="#FF6B8B"/>
-                            <path d="M53 48L43 42V54L53 48ZM53 48L63 42V54L53 48Z" fill="#FF6B8B" stroke="#4E2A1E" stroke-width="1.2" stroke-linejoin="round"/>
+                        <!-- 1. Ommpy (Gajah Abu-Abu #8C8E92 dengan 2 Gading Krim Kecil) -->
+                        <g transform="translate(36, 48)">
+                            <ellipse cx="12" cy="36" rx="11" ry="15" transform="rotate(-14 12 36)" fill="#8C8E92" stroke="#6E7075" stroke-width="2"/>
+                            <ellipse cx="52" cy="36" rx="11" ry="15" transform="rotate(14 52 36)" fill="#8C8E92" stroke="#6E7075" stroke-width="2"/>
+                            <ellipse cx="32" cy="36" rx="21" ry="22" fill="#8C8E92" stroke="#6E7075" stroke-width="2"/>
+                            <path d="M20 26C23 24 26 24 28 26" stroke="#6E7075" stroke-width="1.6" stroke-linecap="round"/>
+                            <path d="M36 26C38 24 41 24 44 26" stroke="#6E7075" stroke-width="1.6" stroke-linecap="round"/>
+                            <circle cx="24" cy="32" r="3.4" fill="#1E2024"/>
+                            <circle cx="23" cy="31" r="1.2" fill="#FFFFFF"/>
+                            <circle cx="40" cy="32" r="3.4" fill="#1E2024"/>
+                            <circle cx="39" cy="31" r="1.2" fill="#FFFFFF"/>
+                            <!-- Gading Krim Kecil -->
+                            <path d="M23 48C17 50 14 54 15 56C17 57 22 54 25 51" fill="#EFECE6" stroke="#C9C3B8" stroke-width="1.4"/>
+                            <path d="M41 48C47 50 50 54 49 56C47 57 42 54 39 51" fill="#EFECE6" stroke="#C9C3B8" stroke-width="1.4"/>
+                            <!-- Belalai Berkerut -->
+                            <path d="M26 42C26 54 24 64 31 67C36 69 40 65 38 61C36 58 34 59 34 55C34 50 37 46 38 42" fill="#8C8E92" stroke="#6E7075" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M27 47H36M26 52H35M26 57H34" stroke="#6E7075" stroke-width="1.4" stroke-linecap="round"/>
                         </g>
 
-                        <ellipse cx="94" cy="146" rx="11" ry="8.5" transform="rotate(-15 94 146)" fill="#FFFFFF" stroke="#D8B4BC" stroke-width="3"/>
-                        <ellipse cx="176" cy="146" rx="11" ry="8.5" transform="rotate(15 176 146)" fill="#FFFFFF" stroke="#D8B4BC" stroke-width="3"/>
+                        <!-- 2. Goompy (Sapi Bulat Putih-Hitam, Moncong Peach & Lidah Merah Kecil) -->
+                        <g transform="translate(96, 52)">
+                            <ellipse cx="32" cy="36" rx="25" ry="23" fill="#F7F8FA" stroke="#D5D8E0" stroke-width="2.2"/>
+                            <!-- Tanduk & Telinga -->
+                            <path d="M18 15C16 9 20 8 23 13" fill="#E9B9A3" stroke="#C9957E" stroke-width="1.5"/>
+                            <path d="M46 15C48 9 44 8 41 13" fill="#E9B9A3" stroke="#C9957E" stroke-width="1.5"/>
+                            <!-- Totol Hitam di Kepala Kanan Atas -->
+                            <path d="M31 13C41 13 51 19 52 29C45 31 36 28 31 22C29 19 29 15 31 13Z" fill="#1E2024"/>
+                            <circle cx="22" cy="27" r="2.8" fill="#1E2024"/>
+                            <circle cx="42" cy="27" r="2.8" fill="#1E2024"/>
+                            <!-- Lidah Merah Kecil -->
+                            <path d="M28 50C28 56 36 56 36 50" fill="#CC3D3D" stroke="#9E2A2A" stroke-width="1.4"/>
+                            <!-- Moncong Oval Peach -->
+                            <ellipse cx="32" cy="42" rx="16" ry="10.5" fill="#E9B9A3" stroke="#C9957E" stroke-width="1.8"/>
+                            <circle cx="26" cy="42" r="2" fill="#231F20"/>
+                            <circle cx="38" cy="42" r="2" fill="#231F20"/>
+                        </g>
+
+                        <!-- 3. General Munchkin Man (Orca Hitam-Putih di atas Paus/Hiu Biru Slate) -->
+                        <g transform="translate(156, 36)">
+                            <!-- Paus Biru Slate di Bawah -->
+                            <ellipse cx="36" cy="58" rx="30" ry="16" fill="#6F8796" stroke="#536875" stroke-width="2"/>
+                            <path d="M10 61C22 69 50 69 62 61C54 72 18 72 10 61Z" fill="#ECEAE6"/>
+                            <path d="M58 55L71 48L67 58L71 66L58 60Z" fill="#6F8796" stroke="#536875" stroke-width="1.6" stroke-linejoin="round"/>
+                            <circle cx="17" cy="56" r="2.5" fill="#1E2024"/>
+                            <circle cx="16.3" cy="55.3" r="0.9" fill="#FFFFFF"/>
+                            <!-- Orca Hitam-Putih di Atas -->
+                            <path d="M35 19L41 9L45 20Z" fill="#1B1E24"/>
+                            <ellipse cx="36" cy="32" rx="23" ry="13" fill="#1B1E24" stroke="#111317" stroke-width="1.8"/>
+                            <path d="M15 35C24 41 46 41 55 35C48 44 22 44 15 35Z" fill="#F5F0EB"/>
+                            <ellipse cx="29" cy="29" rx="5.5" ry="3.2" transform="rotate(-12 29 29)" fill="#F5F0EB"/>
+                            <circle cx="21" cy="31" r="2.2" fill="#111317"/>
+                            <circle cx="20.4" cy="30.4" r="0.8" fill="#FFFFFF"/>
+                            <path d="M36 37L42 46L31 41Z" fill="#1B1E24"/>
+                        </g>
+
+                        <!-- 4. Lil Jimbo (Anjing Golden Retriever #D6B47C + Lidah Coral) -->
+                        <g transform="translate(226, 48)">
+                            <!-- Telinga Terkulai -->
+                            <path d="M16 25C8 30 6 46 11 52C15 54 19 46 20 35" fill="#C29D62" stroke="#A68249" stroke-width="1.8"/>
+                            <path d="M48 25C56 30 58 46 53 52C49 54 45 46 44 35" fill="#C29D62" stroke="#A68249" stroke-width="1.8"/>
+                            <ellipse cx="32" cy="35" rx="19" ry="21" fill="#D6B47C" stroke="#B48D52" stroke-width="2"/>
+                            <circle cx="24" cy="30" r="3" fill="#1D1E22"/>
+                            <circle cx="23.2" cy="29.2" r="1.1" fill="#FFFFFF"/>
+                            <circle cx="40" cy="30" r="3" fill="#1D1E22"/>
+                            <circle cx="39.2" cy="29.2" r="1.1" fill="#FFFFFF"/>
+                            <!-- Mulut & Lidah Coral -->
+                            <path d="M25 46C28 50 36 50 39 46" fill="#2B1E1A"/>
+                            <path d="M28 47C28 55 36 55 36 47Z" fill="#DA6552" stroke="#B54B3A" stroke-width="1.3"/>
+                            <!-- Moncong & Hidung Hitam Besar -->
+                            <ellipse cx="32" cy="41" rx="10" ry="7.5" fill="#DFC18D"/>
+                            <ellipse cx="32" cy="38.5" rx="5.5" ry="4" fill="#1D1E22"/>
+                        </g>
+
+                        <!-- 5. Larry (Alien Hijau #32924C + Mini-Larry Gantungan Kunci) -->
+                        <g transform="translate(284, 42)">
+                            <!-- Antena -->
+                            <line x1="23" y1="18" x2="18" y2="6" stroke="#32924C" stroke-width="3.2" stroke-linecap="round"/>
+                            <circle cx="18" cy="5" r="3" fill="#32924C"/>
+                            <line x1="39" y1="18" x2="44" y2="6" stroke="#32924C" stroke-width="3.2" stroke-linecap="round"/>
+                            <circle cx="44" cy="5" r="3" fill="#32924C"/>
+                            <!-- Kepala Alien -->
+                            <ellipse cx="31" cy="33" rx="22" ry="18" fill="#32924C" stroke="#226B36" stroke-width="2"/>
+                            <!-- Mata Hitam Oval Miring + 2 Titik Putih -->
+                            <ellipse cx="21" cy="33" rx="6.5" ry="10.5" transform="rotate(-22 21 33)" fill="#15181C"/>
+                            <circle cx="19" cy="29" r="2.1" fill="#FFFFFF"/>
+                            <circle cx="21" cy="35" r="1.1" fill="#FFFFFF"/>
+                            <ellipse cx="41" cy="33" rx="6.5" ry="10.5" transform="rotate(22 41 33)" fill="#15181C"/>
+                            <circle cx="43" cy="29" r="2.1" fill="#FFFFFF"/>
+                            <circle cx="41" cy="35" r="1.1" fill="#FFFFFF"/>
+                            <!-- Badan Hijau -->
+                            <rect x="20" y="49" width="22" height="22" rx="9" fill="#32924C" stroke="#226B36" stroke-width="1.8"/>
+                            <!-- Mini-Larry di Dada/Lengan -->
+                            <g transform="translate(2, 46) scale(0.55)">
+                                <line x1="14" y1="12" x2="10" y2="3" stroke="#39A356" stroke-width="3" stroke-linecap="round"/>
+                                <line x1="26" y1="12" x2="30" y2="3" stroke="#39A356" stroke-width="3" stroke-linecap="round"/>
+                                <ellipse cx="20" cy="22" rx="13" ry="11" fill="#39A356" stroke="#226B36" stroke-width="2"/>
+                                <ellipse cx="14" cy="22" rx="3.8" ry="6" transform="rotate(-20 14 22)" fill="#15181C"/>
+                                <circle cx="13" cy="20" r="1.2" fill="#FFFFFF"/>
+                                <ellipse cx="26" cy="22" rx="3.8" ry="6" transform="rotate(20 26 22)" fill="#15181C"/>
+                                <circle cx="27" cy="20" r="1.2" fill="#FFFFFF"/>
+                                <rect x="13" y="32" width="14" height="14" rx="6" fill="#39A356" stroke="#226B36" stroke-width="1.8"/>
+                            </g>
+                        </g>
                     </svg>
                 </div>
 
                 <h1 class="text-xl sm:text-2xl font-bold text-choco leading-snug">
-                    Hai, <span class="display-nickname text-roseaccent">Kamu</span>! Jangan bad mood lagi ya...
+                    Hai, <span class="display-nickname text-roseaccent">Firyal Naila</span>! Jangan bad mood lagi ya...
                 </h1>
 
                 <p class="text-choco-medium text-xs sm:text-sm leading-relaxed mt-1.5 px-1">
-                    Aku titip pesan kecil bareng jajanan favoritmu. Ketuk amplop atau tombol di bawah untuk membukanya ya!
+                    Ommpy, Goompy, General Munchkin Man, Lil Jimbo, dan Larry ikut bantu bawain pesan kecil bareng jajanan favoritmu. Ketuk amplop di bawah untuk membukanya ya!
                 </p>
 
                 <!-- ===========================================================
                      AMPLOP SURAT INTERAKTIF (BISA DIKLIK LANGSUNG)
                      =========================================================== -->
-                <div class="mt-6 mb-4 pt-2">
-                    <div id="stage1-envelope" role="button" tabindex="0" aria-label="Buka Amplop Pesan"
+                <div class="mt-5 mb-4 pt-2">
+                    <div id="stage1-envelope" role="button" tabindex="0" aria-label="Buka Amplop Pesan untuk Firyal Naila"
                         onclick="openEnvelopeAndAdvance()"
                         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openEnvelopeAndAdvance();}"
                         class="hero-envelope group">
@@ -456,25 +507,25 @@
                         <div class="absolute inset-0 rounded-2xl bg-[#F6BCC9] border-2 border-[#E39FAE] shadow-md z-1"></div>
 
                         <!-- Kertas Surat di Dalam yang Naik ke Atas saat Diklik -->
-                        <div class="hero-letter-sheet">
-                            <span class="text-[11px] font-heading font-bold text-roseaccent">
-                                Untuk <span class="display-nickname">Kamu</span> ✨
+                        <div class="hero-letter-sheet px-2">
+                            <span class="text-[11px] font-heading font-bold text-roseaccent truncate max-w-full">
+                                Untuk: <span class="display-nickname">Firyal Naila</span> ✨
                             </span>
                             <div class="w-24 h-1.5 bg-blush-200 rounded-full mt-1.5"></div>
                             <div class="w-16 h-1.5 bg-choco-soft rounded-full mt-1"></div>
                         </div>
 
                         <!-- Saku Depan Amplop (Kiri, Kanan, Bawah) -->
-                        <svg viewBox="0 0 224 138" class="absolute inset-0 w-full h-full pointer-events-none z-3">
-                            <path d="M2 135L112 72L222 135H2Z" fill="#FFE8EE" stroke="#E39FAE" stroke-width="2" stroke-linejoin="round"/>
-                            <path d="M2 4L94 72L2 135V4Z" fill="#FFD6E0" stroke="#E39FAE" stroke-width="2" stroke-linejoin="round"/>
-                            <path d="M222 4L130 72L222 135V4Z" fill="#FFD6E0" stroke="#E39FAE" stroke-width="2" stroke-linejoin="round"/>
+                        <svg viewBox="0 0 236 142" class="absolute inset-0 w-full h-full pointer-events-none z-3">
+                            <path d="M2 139L118 74L234 139H2Z" fill="#FFE8EE" stroke="#E39FAE" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 4L98 74L2 139V4Z" fill="#FFD6E0" stroke="#E39FAE" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M234 4L138 74L234 139V4Z" fill="#FFD6E0" stroke="#E39FAE" stroke-width="2" stroke-linejoin="round"/>
                         </svg>
 
                         <!-- Tutup Segitiga Atas Amplop -->
                         <div class="hero-envelope-flap pointer-events-none">
-                            <svg viewBox="0 0 224 78" class="w-full h-full">
-                                <path d="M2 2L112 73L222 2H2Z" fill="#F9B5C4" stroke="#DC94A4" stroke-width="2" stroke-linejoin="round"/>
+                            <svg viewBox="0 0 236 80" class="w-full h-full">
+                                <path d="M2 2L118 75L234 2H2Z" fill="#F9B5C4" stroke="#DC94A4" stroke-width="2" stroke-linejoin="round"/>
                             </svg>
                         </div>
 
@@ -486,7 +537,7 @@
                         </div>
                     </div>
                     <p class="text-[11px] text-choco-light font-semibold mt-2">
-                        Ketuk amplop di atas atau tekan tombol di bawah 👇
+                        Untuk: <span class="font-bold text-choco display-nickname">Firyal Naila</span> — Ketuk amplop atau tombol di bawah 👇
                     </p>
                 </div>
 
@@ -499,50 +550,281 @@
             </section>
 
             <!-- ===============================================================
-                 TAHAP 2: KARTU SURAT, LEVEL MOOD ADEM & MENU JAJANAN FAVORIT
+                 TAHAP 2: SURAT MAAF, PASUKAN 5 BONEKA, CAMILAN & TOMBOL LINCAH
                  =============================================================== -->
             <section id="stage-2" class="stage-section relative z-10">
 
-                <!-- Kartu Surat Bersih & Mudah Dibaca -->
+                <!-- Kartu Surat Bersih & Sopan untuk Firyal Naila -->
                 <div class="bg-blush-bg border border-blush-200 rounded-2xl p-4 sm:p-5 shadow-xs text-left">
-                    <div class="flex items-center justify-between border-b border-blush-200/80 pb-2.5 mb-3">
+                    <div class="flex items-center justify-between gap-2 border-b border-blush-200/80 pb-2.5 mb-3">
                         <h2 class="font-heading font-bold text-choco text-base sm:text-lg">
-                            Hai, <span class="display-nickname text-roseaccent">Kamu</span>! ✨
+                            Hai, <span class="display-nickname text-roseaccent">Firyal Naila</span>! ✨
                         </h2>
-                        <span class="text-[11px] font-bold text-choco bg-cream border border-blush-200 px-2.5 py-0.5 rounded-full">
+                        <span class="text-[11px] font-bold text-choco bg-cream border border-blush-200 px-2.5 py-0.5 rounded-full shrink-0">
                             Pesan Tulus 📩
                         </span>
                     </div>
 
                     <p id="display-apology-message" class="text-xs sm:text-[13.5px] text-choco-medium leading-relaxed whitespace-pre-line">
-                        Maaf banget ya kalau ucapan atau sikapku kemarin sempat bikin kamu kurang nyaman atau bad mood. Niatku sama sekali nggak ke sana. Karena kita baru kenal, aku pengen banget jaga suasana tetap asyik dan bikin kamu nyaman ngobrol. Boleh ya kita baikan lagi?
+                        Maaf banget ya Firyal kalau ucapan atau sikapku kemarin sempat bikin kamu kurang nyaman atau bad mood. Niatku sama sekali nggak ke sana. Karena kita baru kenal, aku pengen banget jaga suasana tetap asyik, santai, dan bikin kamu nyaman ngobrol tanpa ada rasa nggak enak. Boleh ya kita baikan lagi?
                     </p>
                 </div>
 
-                <!-- Indikator Level Mood Adem & 3 Kartu Jajanan Favorit -->
-                <div class="mt-4 bg-choco-soft/75 border border-[#E6CFC7] rounded-2xl p-3.5">
-                    <div class="flex items-center justify-between mb-1.5">
+                <!-- Indikator Level Mood Adem Firyal ✨ (0% -> 100%) -->
+                <div class="mt-3.5 bg-choco-soft/75 border border-[#E6CFC7] rounded-2xl p-3.5">
+                    <div class="flex items-center justify-between mb-1">
                         <h3 class="font-heading font-bold text-xs sm:text-sm text-choco">
-                            Level Mood Adem ✨
+                            Level Mood Adem Firyal ✨
                         </h3>
                         <span id="meter-percent-badge" class="text-[11px] font-extrabold text-roseaccent bg-cream px-2.5 py-0.5 rounded-full border border-blush-200">
                             0%
                         </span>
                     </div>
+                    <p id="meter-status-text" class="text-[11px] text-choco-light mb-2 text-left">
+                        Ketuk boneka kesayangan atau camilan favoritmu di bawah buat naikin mood adem! 👇
+                    </p>
 
-                    <!-- Progress Bar Level Mood Adem (0% -> 100%) -->
-                    <div class="w-full h-3 bg-cream rounded-full overflow-hidden border border-[#E5C7C0] p-0.5 mb-3">
-                        <div id="meter-fill-bar" class="h-full w-0 rounded-full bg-gradient-to-r from-roseaccent-light via-roseaccent to-[#E11D48] transition-all duration-500 ease-out"></div>
+                    <!-- Progress Bar -->
+                    <div class="w-full h-3 bg-cream rounded-full overflow-hidden border border-[#E5C7C0] p-0.5">
+                        <div id="meter-fill-bar" class="h-full w-0 rounded-full bg-gradient-to-r from-caramel via-roseaccent-light to-roseaccent transition-all duration-500 ease-out"></div>
                     </div>
 
-                    <!-- 3 Kartu Jajanan Favorit dengan Ilustrasi SVG Khusus -->
+                    <!-- Kotak Dialog Karakter / Balasan Interaktif -->
+                    <div id="dialogue-box" class="mt-3 bg-cream border border-roseaccent-light rounded-xl p-3 text-left shadow-xs">
+                        <div class="flex items-start gap-2.5">
+                            <span id="dialogue-speaker-icon" class="text-lg shrink-0 mt-0.5">🧸</span>
+                            <div class="min-w-0">
+                                <p id="dialogue-speaker-name" class="font-heading font-bold text-[11px] uppercase tracking-wider text-roseaccent">
+                                    Pasukan Boneka Firyal
+                                </p>
+                                <p id="dialogue-text" class="text-xs sm:text-[13px] text-choco font-medium leading-relaxed mt-0.5">
+                                    "Halo Firyal! Coba ketuk salah satu dari kami atau camilan favoritmu di bawah ya, kami semua ikut bantu bujuk biar kamu senyum lagi ✨"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===========================================================
+                     BAGIAN 1: PASUKAN BONEKA PEMBUJUK FIRYAL 🧸 (5 KARTU SVG AKURAT)
+                     =========================================================== -->
+                <div class="mt-3.5 bg-blush-bg/85 border border-blush-200 rounded-2xl p-3.5 text-left">
+                    <div class="flex items-center justify-between mb-2.5">
+                        <h3 class="font-heading font-bold text-xs sm:text-sm text-choco">
+                            Pasukan Boneka Pembujuk Firyal 🧸
+                        </h3>
+                        <span class="text-[10px] font-bold text-caramel bg-cream border border-caramel-light px-2 py-0.5 rounded-full">
+                            +15% / boneka
+                        </span>
+                    </div>
+
+                    <!-- Grid Responsif 5 Boneka (3 atas + 2 bawah terpusat di mobile, 5 rapi di layar lebar) -->
+                    <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
+
+                        <!-- 1. Ommpy (Gajah Abu-Abu #8C8E92 dengan 2 Gading Krim) -->
+                        <button type="button" onclick="interactPlushie('ommpy')" id="plushie-card-ommpy"
+                            class="interactive-item-card bg-cream border-2 border-[#EAD4CE] rounded-xl p-2 flex flex-col items-center text-center cursor-pointer relative">
+                            <span id="badge-plushie-ommpy" class="hidden absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-roseaccent text-white text-[10px] font-bold items-center justify-center shadow-xs">✓</span>
+                            <div id="svg-wrap-ommpy" class="w-16 h-14 mb-1">
+                                <svg viewBox="0 0 110 92" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                                    <!-- Telinga Lebar Abu-Abu -->
+                                    <ellipse cx="22" cy="48" rx="16" ry="22" transform="rotate(-14 22 48)" fill="#8C8E92" stroke="#6E7075" stroke-width="2.2"/>
+                                    <ellipse cx="23" cy="49" rx="10" ry="15" transform="rotate(-14 23 49)" fill="#77797D" opacity="0.55"/>
+                                    <ellipse cx="88" cy="48" rx="16" ry="22" transform="rotate(14 88 48)" fill="#8C8E92" stroke="#6E7075" stroke-width="2.2"/>
+                                    <ellipse cx="87" cy="49" rx="10" ry="15" transform="rotate(14 87 49)" fill="#77797D" opacity="0.55"/>
+                                    <!-- Kepala Gajah Abu-Abu -->
+                                    <ellipse cx="55" cy="44" rx="31" ry="30" fill="#8C8E92" stroke="#6E7075" stroke-width="2.2"/>
+                                    <!-- Lipatan Alis & Tekstur Boneka -->
+                                    <path d="M35 33C39 30 44 30 47 33" stroke="#6E7075" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M63 33C66 30 71 30 75 33" stroke="#6E7075" stroke-width="2" stroke-linecap="round"/>
+                                    <!-- Mata Gelap Ekspresif dengan Kilau Putih -->
+                                    <circle cx="41" cy="41" r="4.8" fill="#1E2024"/>
+                                    <circle cx="39.5" cy="39.5" r="1.7" fill="#FFFFFF"/>
+                                    <circle cx="69" cy="41" r="4.8" fill="#1E2024"/>
+                                    <circle cx="67.5" cy="39.5" r="1.7" fill="#FFFFFF"/>
+                                    <!-- Dua Gading Krim Kecil di Samping Pangkal Belalai -->
+                                    <path d="M42 61C33 63 29 69 31 72C33 74 40 70 44 65" fill="#EFECE6" stroke="#C5BEB2" stroke-width="1.8" stroke-linejoin="round"/>
+                                    <path d="M68 61C77 63 81 69 79 72C77 74 70 70 66 65" fill="#EFECE6" stroke="#C5BEB2" stroke-width="1.8" stroke-linejoin="round"/>
+                                    <!-- Belalai Melengkung dengan Garis Kerutan Horizontal -->
+                                    <path d="M46 53C46 69 44 82 54 85C61 87 66 82 63 77C60 73 57 75 57 69C57 63 62 58 64 53" fill="#8C8E92" stroke="#6E7075" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M47 59H62M46 65H60M47 71H58M49 77H57" stroke="#6E7075" stroke-width="1.7" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <span class="font-heading font-bold text-[11px] text-choco leading-tight">Ommpy</span>
+                            <span class="text-[9.5px] text-choco-light">Gajah</span>
+                        </button>
+
+                        <!-- 2. Goompy (Sapi Bulat Putih-Hitam, Moncong Peach & Lidah Merah Kecil) -->
+                        <button type="button" onclick="interactPlushie('goompy')" id="plushie-card-goompy"
+                            class="interactive-item-card bg-cream border-2 border-[#EAD4CE] rounded-xl p-2 flex flex-col items-center text-center cursor-pointer relative">
+                            <span id="badge-plushie-goompy" class="hidden absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-roseaccent text-white text-[10px] font-bold items-center justify-center shadow-xs">✓</span>
+                            <div id="svg-wrap-goompy" class="w-16 h-14 mb-1">
+                                <svg viewBox="0 0 110 92" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                                    <!-- Tanduk Krem & Telinga -->
+                                    <path d="M34 22C31 13 37 11 41 19" fill="#E9B9A3" stroke="#C9957E" stroke-width="1.8" stroke-linejoin="round"/>
+                                    <path d="M76 22C79 13 73 11 69 19" fill="#E9B9A3" stroke="#C9957E" stroke-width="1.8" stroke-linejoin="round"/>
+                                    <ellipse cx="22" cy="30" rx="9" ry="5.5" transform="rotate(-24 22 30)" fill="#F7F8FA" stroke="#D2D6DF" stroke-width="2"/>
+                                    <ellipse cx="88" cy="30" rx="9" ry="5.5" transform="rotate(24 88 30)" fill="#1E2024" stroke="#111317" stroke-width="2"/>
+                                    <!-- Badan & Kepala Bulat Berbulu Putih -->
+                                    <ellipse cx="55" cy="50" rx="36" ry="33" fill="#F7F8FA" stroke="#D2D6DF" stroke-width="2.4"/>
+                                    <!-- Totol Hitam di Kepala Kanan Atas -->
+                                    <path d="M54 17C69 17 83 25 86 39C76 42 63 38 56 30C52 25 52 20 54 17Z" fill="#1E2024"/>
+                                    <!-- Mata Kancing Hitam Kecil -->
+                                    <circle cx="40" cy="38" r="3.6" fill="#1E2024"/>
+                                    <circle cx="39" cy="37" r="1.1" fill="#FFFFFF"/>
+                                    <circle cx="70" cy="38" r="3.6" fill="#1E2024"/>
+                                    <circle cx="69" cy="37" r="1.1" fill="#FFFFFF"/>
+                                    <!-- Lidah Merah Kecil Menjulur di Bawah Moncong -->
+                                    <path d="M49 69C49 78 61 78 61 69" fill="#CC3D3D" stroke="#9B2626" stroke-width="1.6"/>
+                                    <line x1="55" y1="70" x2="55" y2="75" stroke="#9B2626" stroke-width="1.3" stroke-linecap="round"/>
+                                    <!-- Moncong Oval Peach dengan Jahitan Pinggir -->
+                                    <ellipse cx="55" cy="58" rx="23" ry="14.5" fill="#E9B9A3" stroke="#C9957E" stroke-width="2"/>
+                                    <ellipse cx="55" cy="58" rx="20.5" ry="12" stroke="#C9957E" stroke-width="1" stroke-dasharray="2.5 2"/>
+                                    <!-- Dua Lubang Hidung Gelap -->
+                                    <circle cx="46" cy="58" r="2.8" fill="#231F20"/>
+                                    <circle cx="64" cy="58" r="2.8" fill="#231F20"/>
+                                </svg>
+                            </div>
+                            <span class="font-heading font-bold text-[11px] text-choco leading-tight">Goompy</span>
+                            <span class="text-[9.5px] text-choco-light">Sapi</span>
+                        </button>
+
+                        <!-- 3. General Munchkin Man (Duo Orca di atas Paus Biru Slate) -->
+                        <button type="button" onclick="interactPlushie('munchkin')" id="plushie-card-munchkin"
+                            class="interactive-item-card bg-cream border-2 border-[#EAD4CE] rounded-xl p-2 flex flex-col items-center text-center cursor-pointer relative">
+                            <span id="badge-plushie-munchkin" class="hidden absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-roseaccent text-white text-[10px] font-bold items-center justify-center shadow-xs">✓</span>
+                            <div id="svg-wrap-munchkin" class="w-16 h-14 mb-1">
+                                <svg viewBox="0 0 110 92" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                                    <!-- Paus / Hiu Biru Slate Besar di Bawah -->
+                                    <ellipse cx="52" cy="66" rx="41" ry="20" fill="#6F8796" stroke="#526774" stroke-width="2.2"/>
+                                    <!-- Perut Bawah Pucat -->
+                                    <path d="M14 69C31 80 72 80 88 69C76 85 26 85 14 69Z" fill="#ECEAE6"/>
+                                    <!-- Ekor Paus Biru Slate -->
+                                    <path d="M88 62L105 52L99 65L105 76L88 68Z" fill="#6F8796" stroke="#526774" stroke-width="1.8" stroke-linejoin="round"/>
+                                    <!-- Sirip Samping & Mata Paus Biru -->
+                                    <path d="M56 71L66 83L47 75Z" fill="#6F8796" stroke="#526774" stroke-width="1.6" stroke-linejoin="round"/>
+                                    <circle cx="24" cy="64" r="3.2" fill="#1E2024"/>
+                                    <circle cx="23.2" cy="63.2" r="1.1" fill="#FFFFFF"/>
+
+                                    <!-- Orca Hitam-Putih Bertengger di Atas -->
+                                    <path d="M52 18L60 5L65 19Z" fill="#1B1E24" stroke="#111317" stroke-width="1.6" stroke-linejoin="round"/>
+                                    <ellipse cx="52" cy="34" rx="31" ry="17" fill="#1B1E24" stroke="#111317" stroke-width="2"/>
+                                    <!-- Perut & Dagu Putih Orca -->
+                                    <path d="M23 38C36 46 66 46 79 38C69 50 33 50 23 38Z" fill="#F5F0EB"/>
+                                    <!-- Bercak Mata Putih Khas Orca -->
+                                    <ellipse cx="42" cy="30" rx="7.5" ry="4.5" transform="rotate(-14 42 30)" fill="#F5F0EB"/>
+                                    <!-- Mata Orca -->
+                                    <circle cx="31" cy="33" r="2.8" fill="#111317"/>
+                                    <circle cx="30.2" cy="32.2" r="1" fill="#FFFFFF"/>
+                                    <!-- Sirip Samping Hitam Orca -->
+                                    <path d="M51 40L60 53L44 45Z" fill="#1B1E24" stroke="#111317" stroke-width="1.6" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span class="font-heading font-bold text-[10px] text-choco leading-tight">General Munchkin</span>
+                            <span class="text-[9.5px] text-choco-light">Orca &amp; Paus</span>
+                        </button>
+
+                        <!-- 4. Lil Jimbo (Anjing Golden Retriever #D6B47C & Lidah Coral) -->
+                        <button type="button" onclick="interactPlushie('jimbo')" id="plushie-card-jimbo"
+                            class="interactive-item-card bg-cream border-2 border-[#EAD4CE] rounded-xl p-2 flex flex-col items-center text-center cursor-pointer relative">
+                            <span id="badge-plushie-jimbo" class="hidden absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-roseaccent text-white text-[10px] font-bold items-center justify-center shadow-xs">✓</span>
+                            <div id="svg-wrap-jimbo" class="w-16 h-14 mb-1">
+                                <svg viewBox="0 0 110 92" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                                    <!-- Telinga Terkulai Hangat Golden-Tan -->
+                                    <path d="M28 28C16 35 13 58 20 67C26 70 32 58 34 42" fill="#C29D62" stroke="#A37E45" stroke-width="2.2" stroke-linejoin="round"/>
+                                    <path d="M82 28C94 35 97 58 90 67C84 70 78 58 76 42" fill="#C29D62" stroke="#A37E45" stroke-width="2.2" stroke-linejoin="round"/>
+                                    <!-- Kepala Bulat Lembut Golden Retriever -->
+                                    <ellipse cx="55" cy="44" rx="28" ry="30" fill="#D6B47C" stroke="#B48D52" stroke-width="2.2"/>
+                                    <!-- Mata Gelap dengan Kilau Sabit Putih -->
+                                    <circle cx="42" cy="36" r="4.4" fill="#1D1E22"/>
+                                    <path d="M40 34.5C41 33.5 42.5 33.5 43.5 34.5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+                                    <circle cx="68" cy="36" r="4.4" fill="#1D1E22"/>
+                                    <path d="M66 34.5C67 33.5 68.5 33.5 69.5 34.5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+                                    <!-- Mulut Terbuka & Lidah Coral-Pink Menjulur -->
+                                    <path d="M44 60C48 67 62 67 66 60" fill="#2B1E1A"/>
+                                    <path d="M48 62C48 76 62 76 62 62Z" fill="#DA6552" stroke="#B24837" stroke-width="1.8" stroke-linejoin="round"/>
+                                    <line x1="55" y1="63" x2="55" y2="71" stroke="#B24837" stroke-width="1.4" stroke-linecap="round"/>
+                                    <!-- Moncong & Hidung Kain Hitam Besar -->
+                                    <ellipse cx="55" cy="53" rx="16" ry="11.5" fill="#E1C492" stroke="#B48D52" stroke-width="1.6"/>
+                                    <ellipse cx="55" cy="49" rx="8.5" ry="6" fill="#1D1E22"/>
+                                    <ellipse cx="52.5" cy="47.2" rx="2.5" ry="1.3" fill="#4A4D57"/>
+                                </svg>
+                            </div>
+                            <span class="font-heading font-bold text-[11px] text-choco leading-tight">Lil Jimbo</span>
+                            <span class="text-[9.5px] text-choco-light">Anjing</span>
+                        </button>
+
+                        <!-- 5. Larry (Alien Hijau #32924C + Mini-Larry Gantungan Kunci) -->
+                        <button type="button" onclick="interactPlushie('larry')" id="plushie-card-larry"
+                            class="interactive-item-card bg-cream border-2 border-[#EAD4CE] rounded-xl p-2 flex flex-col items-center text-center cursor-pointer relative">
+                            <span id="badge-plushie-larry" class="hidden absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-roseaccent text-white text-[10px] font-bold items-center justify-center shadow-xs">✓</span>
+                            <div id="svg-wrap-larry" class="w-16 h-14 mb-1">
+                                <svg viewBox="0 0 110 92" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                                    <!-- Dua Antena Hijau di Atas Kepala -->
+                                    <line x1="44" y1="22" x2="36" y2="7" stroke="#32924C" stroke-width="4.5" stroke-linecap="round"/>
+                                    <circle cx="36" cy="6" r="4" fill="#32924C" stroke="#226B36" stroke-width="1.5"/>
+                                    <line x1="68" y1="22" x2="76" y2="7" stroke="#32924C" stroke-width="4.5" stroke-linecap="round"/>
+                                    <circle cx="76" cy="6" r="4" fill="#32924C" stroke="#226B36" stroke-width="1.5"/>
+                                    <!-- Badan & Lengan Hijau -->
+                                    <rect x="40" y="56" width="32" height="28" rx="12" fill="#32924C" stroke="#226B36" stroke-width="2"/>
+                                    <path d="M40 62L25 71" stroke="#32924C" stroke-width="7" stroke-linecap="round"/>
+                                    <path d="M72 62L87 71" stroke="#32924C" stroke-width="7" stroke-linecap="round"/>
+                                    <!-- Kepala Alien Hijau Cerah -->
+                                    <ellipse cx="56" cy="39" rx="31" ry="24" fill="#32924C" stroke="#226B36" stroke-width="2.2"/>
+                                    <!-- Mata Hitam Oval Miring Besar + 2 Titik Putih -->
+                                    <ellipse cx="41" cy="39" rx="9" ry="14.5" transform="rotate(-22 41 39)" fill="#15181C"/>
+                                    <circle cx="38" cy="33" r="3" fill="#FFFFFF"/>
+                                    <circle cx="41.5" cy="42" r="1.6" fill="#FFFFFF"/>
+
+                                    <ellipse cx="71" cy="39" rx="9" ry="14.5" transform="rotate(22 71 39)" fill="#15181C"/>
+                                    <circle cx="74" cy="33" r="3" fill="#FFFFFF"/>
+                                    <circle cx="70.5" cy="42" r="1.6" fill="#FFFFFF"/>
+
+                                    <!-- Titik Hidung Jahitan -->
+                                    <circle cx="53.5" cy="49" r="1.4" fill="#15181C"/>
+                                    <circle cx="58.5" cy="49" r="1.4" fill="#15181C"/>
+
+                                    <!-- Mini-Larry Gantungan Kunci Menempel di Dada/Lengan -->
+                                    <g transform="translate(8, 48)">
+                                        <line x1="11" y1="10" x2="7" y2="2" stroke="#39A356" stroke-width="2.6" stroke-linecap="round"/>
+                                        <circle cx="7" cy="2" r="2.2" fill="#F4A6B8"/>
+                                        <line x1="21" y1="10" x2="25" y2="2" stroke="#39A356" stroke-width="2.6" stroke-linecap="round"/>
+                                        <circle cx="25" cy="2" r="2.2" fill="#F4A6B8"/>
+                                        <ellipse cx="16" cy="18" rx="11" ry="9" fill="#39A356" stroke="#226B36" stroke-width="1.6"/>
+                                        <ellipse cx="11.5" cy="18" rx="3.2" ry="5" transform="rotate(-20 11.5 18)" fill="#15181C"/>
+                                        <circle cx="10.5" cy="16" r="1.1" fill="#FFFFFF"/>
+                                        <ellipse cx="20.5" cy="18" rx="3.2" ry="5" transform="rotate(20 20.5 18)" fill="#15181C"/>
+                                        <circle cx="21.5" cy="16" r="1.1" fill="#FFFFFF"/>
+                                        <rect x="10" y="26" width="12" height="12" rx="5" fill="#39A356" stroke="#226B36" stroke-width="1.5"/>
+                                    </g>
+                                </svg>
+                            </div>
+                            <span class="font-heading font-bold text-[11px] text-choco leading-tight">Larry</span>
+                            <span class="text-[9.5px] text-choco-light">Alien</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ===========================================================
+                     BAGIAN 2: SOGOKAN CAMILAN FAVORIT 🍫 (3 KARTU SVG)
+                     =========================================================== -->
+                <div class="mt-3.5 bg-choco-soft/75 border border-[#E6CFC7] rounded-2xl p-3.5 text-left">
+                    <div class="flex items-center justify-between mb-2.5">
+                        <h3 class="font-heading font-bold text-xs sm:text-sm text-choco">
+                            Sogokan Camilan Favorit 🍫
+                        </h3>
+                        <span class="text-[10px] font-bold text-roseaccent bg-cream border border-blush-200 px-2 py-0.5 rounded-full">
+                            +20% / camilan
+                        </span>
+                    </div>
+
+                    <!-- 3 Kartu Jajanan Favorit -->
                     <div class="grid grid-cols-3 gap-2">
                         <!-- 1) Coklat Beryl's -->
                         <button type="button" onclick="tasteTreat('beryls')" id="treat-card-beryls"
-                            class="treat-card bg-cream border-2 border-[#EAD4CE] rounded-xl p-2 flex flex-col items-center text-center cursor-pointer relative">
-                            <span id="badge-beryls" class="hidden absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-roseaccent text-white text-[10px] font-bold items-center justify-center shadow-xs">✓</span>
-                            <div class="w-16 h-14 mb-1">
-                                <!-- Ilustrasi SVG Kotak Coklat Beryl's Tiramisu/Almond -->
+                            class="interactive-item-card bg-cream border-2 border-[#EAD4CE] rounded-xl p-2 flex flex-col items-center text-center cursor-pointer relative">
+                            <span id="badge-treat-beryls" class="hidden absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-roseaccent text-white text-[10px] font-bold items-center justify-center shadow-xs">✓</span>
+                            <div id="svg-wrap-beryls" class="w-16 h-13 mb-1">
                                 <svg viewBox="0 0 110 86" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
                                     <rect x="10" y="10" width="66" height="64" rx="7" fill="#9B1C31" stroke="#D4AF37" stroke-width="2.5"/>
                                     <rect x="15" y="15" width="56" height="54" rx="4" stroke="#F3D06B" stroke-width="1" stroke-dasharray="3 2"/>
@@ -550,7 +832,6 @@
                                     <rect x="18" y="28" width="50" height="24" rx="4" fill="#FFFDF9" stroke="#D4AF37" stroke-width="1.4"/>
                                     <text x="43" y="41" text-anchor="middle" fill="#9B1C31" font-size="11" font-weight="bold" font-family="Georgia, serif">Beryl's</text>
                                     <text x="43" y="48.5" text-anchor="middle" fill="#4E2A1E" font-size="5" font-weight="800" letter-spacing="0.8">TIRAMISU</text>
-                                    <!-- Butir Coklat Almond -->
                                     <ellipse cx="86" cy="64" rx="14" ry="11" fill="#4E2A1E" stroke="#2D160E" stroke-width="1.5"/>
                                     <path d="M78 61C82 57 90 57 94 61" stroke="#8D5B4C" stroke-width="1.8" stroke-linecap="round"/>
                                     <circle cx="91" cy="49" r="9" fill="#6B3E2E" stroke="#4E2A1E" stroke-width="1.5"/>
@@ -562,10 +843,9 @@
 
                         <!-- 2) Nabati Coklat -->
                         <button type="button" onclick="tasteTreat('nabati')" id="treat-card-nabati"
-                            class="treat-card bg-cream border-2 border-[#EAD4CE] rounded-xl p-2 flex flex-col items-center text-center cursor-pointer relative">
-                            <span id="badge-nabati" class="hidden absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-roseaccent text-white text-[10px] font-bold items-center justify-center shadow-xs">✓</span>
-                            <div class="w-16 h-14 mb-1">
-                                <!-- Ilustrasi SVG Wafer Coklat Renyah Nabati -->
+                            class="interactive-item-card bg-cream border-2 border-[#EAD4CE] rounded-xl p-2 flex flex-col items-center text-center cursor-pointer relative">
+                            <span id="badge-treat-nabati" class="hidden absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-roseaccent text-white text-[10px] font-bold items-center justify-center shadow-xs">✓</span>
+                            <div id="svg-wrap-nabati" class="w-16 h-13 mb-1">
                                 <svg viewBox="0 0 110 86" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
                                     <g transform="rotate(-8 42 44)">
                                         <rect x="10" y="14" width="54" height="58" rx="6" fill="url(#nabatiGrad)" stroke="#4E2A1E" stroke-width="2"/>
@@ -596,10 +876,9 @@
 
                         <!-- 3) Mochi Puncak -->
                         <button type="button" onclick="tasteTreat('mochi')" id="treat-card-mochi"
-                            class="treat-card bg-cream border-2 border-[#EAD4CE] rounded-xl p-2 flex flex-col items-center text-center cursor-pointer relative">
-                            <span id="badge-mochi" class="hidden absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-roseaccent text-white text-[10px] font-bold items-center justify-center shadow-xs">✓</span>
-                            <div class="w-16 h-14 mb-1">
-                                <!-- Ilustrasi SVG Kotak Mochi Lembut Bertabur Kacang/Wijen -->
+                            class="interactive-item-card bg-cream border-2 border-[#EAD4CE] rounded-xl p-2 flex flex-col items-center text-center cursor-pointer relative">
+                            <span id="badge-treat-mochi" class="hidden absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-roseaccent text-white text-[10px] font-bold items-center justify-center shadow-xs">✓</span>
+                            <div id="svg-wrap-mochi" class="w-16 h-13 mb-1">
                                 <svg viewBox="0 0 110 86" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
                                     <rect x="12" y="34" width="86" height="40" rx="6" fill="#F3D9B1" stroke="#8D5B4C" stroke-width="2"/>
                                     <rect x="12" y="46" width="86" height="18" fill="#FF6B8B"/>
@@ -620,20 +899,15 @@
                             <span class="font-heading font-bold text-[11px] sm:text-xs text-choco leading-tight">Mochi Puncak</span>
                         </button>
                     </div>
-
-                    <!-- Kotak Balasan Sopan Saat Jajanan Diklik -->
-                    <div id="treat-reply-box" class="hidden mt-3 bg-cream border border-roseaccent-light rounded-xl p-2.5 text-xs sm:text-[13px] text-choco leading-relaxed shadow-xs">
-                        <p id="treat-reply-text" class="font-semibold"></p>
-                    </div>
                 </div>
 
                 <!-- Dua Tombol Pilihan di Bawah Kartu -->
                 <div class="mt-4 text-center">
                     <h3 class="text-base sm:text-lg font-bold text-choco leading-snug">
-                        Jadi... udah nggak bad mood lagi kan? 😊
+                        Jadi... udah nggak bad mood lagi kan, <span class="display-first-name text-roseaccent">Firyal</span>? 😊
                     </h3>
                     <p id="runaway-helper-text" class="text-[11px] sm:text-xs text-choco-light mt-1 min-h-[18px]">
-                        Ketuk jajanan di atas dulu biar makin adem, lalu pilih jawabanmu 👇
+                        Kalau mood udah adem, pilih jawabanmu di bawah ya 👇
                     </p>
 
                     <!-- Arena Tombol Interaktif -->
@@ -657,48 +931,63 @@
                  TAHAP 3: PERAYAAN & 4 TIKET KUPON KLAIM KE WHATSAPP
                  =============================================================== -->
             <section id="stage-3" class="stage-section relative z-10 text-center">
-                <!-- Ilustrasi Maskot Ceria Membawa Kotak Hadiah Jajanan -->
-                <div class="w-24 h-20 mx-auto mb-1 mascot-sway">
-                    <svg viewBox="0 0 180 145" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-                        <!-- Bintang & Bunga Sakura -->
-                        <path d="M34 26L36.5 32L42.5 34.5L36.5 37L34 43L31.5 37L25.5 34.5L31.5 32L34 26Z" fill="#FACC15"/>
-                        <circle cx="146" cy="34" r="4" fill="#FFB3C6"/>
-                        <circle cx="152" cy="38" r="4" fill="#FF94AC"/>
-                        <circle cx="149" cy="44" r="4" fill="#FFB3C6"/>
-                        <circle cx="143" cy="42" r="4" fill="#FF94AC"/>
-                        <circle cx="147.5" cy="39" r="2.2" fill="#FACC15"/>
+                <!-- Ilustrasi Delegasi Boneka Ceria Merayakan Perdamaian -->
+                <div class="w-40 h-20 mx-auto mb-1 mascot-sway">
+                    <svg viewBox="0 0 220 110" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                        <!-- Bintang & Sakura -->
+                        <path d="M28 18L30.5 24L36.5 26.5L30.5 29L28 35L25.5 29L19.5 26.5L25.5 24L28 18Z" fill="#FACC15"/>
+                        <path d="M192 16L194.5 22L200.5 24.5L194.5 27L192 33L189.5 27L183.5 24.5L189.5 22L192 16Z" fill="#FF6B8B"/>
+                        <circle cx="110" cy="14" r="3.5" fill="#FFB3C6"/>
+                        <circle cx="115" cy="18" r="3.5" fill="#FF94AC"/>
+                        <circle cx="112" cy="23" r="3.5" fill="#FFB3C6"/>
+                        <circle cx="107" cy="21" r="3.5" fill="#FF94AC"/>
+                        <circle cx="111" cy="18.5" r="2" fill="#FACC15"/>
 
-                        <path d="M54 50C48 30 59 20 72 33" fill="#FFFFFF" stroke="#D8B4BC" stroke-width="3.5" stroke-linecap="round"/>
-                        <path d="M126 50C132 30 121 20 108 33" fill="#FFFFFF" stroke="#D8B4BC" stroke-width="3.5" stroke-linecap="round"/>
+                        <!-- Mini Ommpy -->
+                        <g transform="translate(26, 36)">
+                            <ellipse cx="10" cy="28" rx="9" ry="12" fill="#8C8E92" stroke="#6E7075" stroke-width="1.8"/>
+                            <ellipse cx="42" cy="28" rx="9" ry="12" fill="#8C8E92" stroke="#6E7075" stroke-width="1.8"/>
+                            <ellipse cx="26" cy="28" rx="17" ry="17" fill="#8C8E92" stroke="#6E7075" stroke-width="1.8"/>
+                            <path d="M18 24C20 21 23 21 25 24" stroke="#1E2024" stroke-width="2.2" stroke-linecap="round"/>
+                            <path d="M28 24C30 21 33 21 35 24" stroke="#1E2024" stroke-width="2.2" stroke-linecap="round"/>
+                            <path d="M22 33C22 43 20 51 26 53C30 54 33 51 31 48" fill="#8C8E92" stroke="#6E7075" stroke-width="1.8" stroke-linecap="round"/>
+                        </g>
 
-                        <ellipse cx="90" cy="74" rx="45" ry="37" fill="#FFFFFF" stroke="#D8B4BC" stroke-width="3.5"/>
-                        <path d="M65 71C68 65 75 65 78 71" stroke="#4E2A1E" stroke-width="3" stroke-linecap="round"/>
-                        <path d="M102 71C105 65 112 65 115 71" stroke="#4E2A1E" stroke-width="3" stroke-linecap="round"/>
-                        <ellipse cx="60" cy="80" rx="8" ry="4.5" fill="#FFB3C6" opacity="0.8"/>
-                        <ellipse cx="120" cy="80" rx="8" ry="4.5" fill="#FFB3C6" opacity="0.8"/>
-                        <path d="M82 83C85 89 95 89 98 83" stroke="#4E2A1E" stroke-width="2.8" stroke-linecap="round"/>
+                        <!-- Kotak Hadiah Jajanan di Tengah -->
+                        <g transform="translate(82, 42)">
+                            <rect x="4" y="14" width="48" height="36" rx="6" fill="#FF6B8B" stroke="#4E2A1E" stroke-width="2"/>
+                            <rect x="24" y="14" width="8" height="36" fill="#FACC15"/>
+                            <rect x="4" y="28" width="48" height="8" fill="#FACC15"/>
+                            <path d="M28 14C21 6 12 10 18 14H28ZM28 14C35 6 44 10 38 14H28Z" fill="#FACC15" stroke="#4E2A1E" stroke-width="1.6"/>
+                        </g>
 
-                        <rect x="70" y="96" width="40" height="30" rx="5" fill="#FF6B8B" stroke="#4E2A1E" stroke-width="1.8"/>
-                        <rect x="87" y="96" width="6" height="30" fill="#FACC15"/>
-                        <rect x="70" y="108" width="40" height="6" fill="#FACC15"/>
-                        <ellipse cx="70" cy="113" rx="10" ry="8" transform="rotate(-20 70 113)" fill="#FFFFFF" stroke="#D8B4BC" stroke-width="3"/>
-                        <ellipse cx="110" cy="113" rx="10" ry="8" transform="rotate(20 110 113)" fill="#FFFFFF" stroke="#D8B4BC" stroke-width="3"/>
+                        <!-- Mini Larry -->
+                        <g transform="translate(142, 30)">
+                            <line x1="20" y1="16" x2="15" y2="6" stroke="#32924C" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="34" y1="16" x2="39" y2="6" stroke="#32924C" stroke-width="3" stroke-linecap="round"/>
+                            <ellipse cx="27" cy="30" rx="19" ry="15" fill="#32924C" stroke="#226B36" stroke-width="1.8"/>
+                            <ellipse cx="19" cy="30" rx="5.5" ry="9" transform="rotate(-22 19 30)" fill="#15181C"/>
+                            <circle cx="17.5" cy="26.5" r="1.8" fill="#FFFFFF"/>
+                            <ellipse cx="35" cy="30" rx="5.5" ry="9" transform="rotate(22 35 30)" fill="#15181C"/>
+                            <circle cx="36.5" cy="26.5" r="1.8" fill="#FFFFFF"/>
+                            <rect x="17" y="44" width="20" height="18" rx="8" fill="#32924C" stroke="#226B36" stroke-width="1.8"/>
+                        </g>
                     </svg>
                 </div>
 
                 <h2 class="text-xl sm:text-2xl font-bold text-choco leading-snug">
-                    Yeay! Makasih banyak udah mau maafin 🙌✨
+                    Yeay! Makasih banyak <span class="display-nickname text-roseaccent">Firyal Naila</span> udah mau maafin 🙌✨
                 </h2>
 
                 <p class="text-xs sm:text-sm text-choco-medium mt-1.5 leading-relaxed">
-                    Sebagai tanda terima kasih karena udah bikin suasana adem lagi, pilih tiket jajanan di bawah ini buat langsung diklaim ke WhatsApp:
+                    Ommpy, Goompy, General Munchkin Man, Lil Jimbo, dan Larry ikut senang! Pilih tiket jajanan di bawah ini buat langsung diklaim ke WhatsApp:
                 </p>
 
                 <!-- 4 Tiket Kupon Berlubang Samping -->
                 <div class="mt-3.5 space-y-2.5 text-left px-1" id="vouchers-container">
 
-                    <!-- Tiket 1: 1 Box Coklat Beryl's 🍫 -->
-                    <button type="button" onclick="claimVoucher(this, '1 Box Coklat Beryl\'s 🍫')"
+                    <!-- Tiket 1: 1 Box Coklat Beryl's -->
+                    <button type="button" onclick="claimVoucher(this, '1 Box Coklat Beryl\'s')"
                         class="w-full text-left ticket-voucher cursor-pointer rounded-2xl border-2 border-[#EAD7D1] bg-blush-bg hover:border-roseaccent flex items-stretch">
                         <div class="w-16 shrink-0 border-r-2 border-dashed border-[#DFC3BC] flex flex-col items-center justify-center p-2 text-center">
                             <span class="text-xl">🍫</span>
@@ -707,7 +996,7 @@
                         <div class="flex-1 p-2.5 sm:p-3 flex items-center justify-between gap-2 min-w-0">
                             <div class="min-w-0">
                                 <h3 class="font-heading font-bold text-xs sm:text-[13.5px] text-choco leading-snug">
-                                    1 Box Coklat Beryl's 🍫
+                                    1 Box Coklat Beryl's
                                 </h3>
                                 <p class="text-[11px] text-choco-light leading-tight mt-0.5">
                                     Coklat manis buat balikin semangat hari ini
@@ -719,8 +1008,8 @@
                         </div>
                     </button>
 
-                    <!-- Tiket 2: Paket Nabati Coklat 🧇 -->
-                    <button type="button" onclick="claimVoucher(this, 'Paket Nabati Coklat 🧇')"
+                    <!-- Tiket 2: Paket Nabati Coklat -->
+                    <button type="button" onclick="claimVoucher(this, 'Paket Nabati Coklat')"
                         class="w-full text-left ticket-voucher cursor-pointer rounded-2xl border-2 border-[#EAD7D1] bg-blush-bg hover:border-roseaccent flex items-stretch">
                         <div class="w-16 shrink-0 border-r-2 border-dashed border-[#DFC3BC] flex flex-col items-center justify-center p-2 text-center">
                             <span class="text-xl">🧇</span>
@@ -729,7 +1018,7 @@
                         <div class="flex-1 p-2.5 sm:p-3 flex items-center justify-between gap-2 min-w-0">
                             <div class="min-w-0">
                                 <h3 class="font-heading font-bold text-xs sm:text-[13.5px] text-choco leading-snug">
-                                    Paket Nabati Coklat 🧇
+                                    Paket Nabati Coklat
                                 </h3>
                                 <p class="text-[11px] text-choco-light leading-tight mt-0.5">
                                     Wafer coklat renyah buat teman santai
@@ -741,8 +1030,8 @@
                         </div>
                     </button>
 
-                    <!-- Tiket 3: 1 Kotak Mochi Puncak Hangat 🍡 -->
-                    <button type="button" onclick="claimVoucher(this, '1 Kotak Mochi Puncak Hangat 🍡')"
+                    <!-- Tiket 3: 1 Kotak Mochi Puncak Hangat -->
+                    <button type="button" onclick="claimVoucher(this, '1 Kotak Mochi Puncak Hangat')"
                         class="w-full text-left ticket-voucher cursor-pointer rounded-2xl border-2 border-[#EAD7D1] bg-blush-bg hover:border-roseaccent flex items-stretch">
                         <div class="w-16 shrink-0 border-r-2 border-dashed border-[#DFC3BC] flex flex-col items-center justify-center p-2 text-center">
                             <span class="text-xl">🍡</span>
@@ -751,7 +1040,7 @@
                         <div class="flex-1 p-2.5 sm:p-3 flex items-center justify-between gap-2 min-w-0">
                             <div class="min-w-0">
                                 <h3 class="font-heading font-bold text-xs sm:text-[13.5px] text-choco leading-snug">
-                                    1 Kotak Mochi Puncak Hangat 🍡
+                                    1 Kotak Mochi Puncak Hangat
                                 </h3>
                                 <p class="text-[11px] text-choco-light leading-tight mt-0.5">
                                     Mochi lembut khas Puncak yang bikin adem
@@ -763,20 +1052,20 @@
                         </div>
                     </button>
 
-                    <!-- Tiket 4: Paket Komplit (Semua Jajanan) ✨ -->
-                    <button type="button" onclick="claimVoucher(this, 'Paket Komplit (Semua Jajanan) ✨')"
+                    <!-- Tiket 4: Paket Komplit Sultan 👑 -->
+                    <button type="button" onclick="claimVoucher(this, 'Paket Komplit Sultan 👑 (Beryl\'s + Nabati + Mochi Puncak)')"
                         class="w-full text-left ticket-voucher cursor-pointer rounded-2xl border-2 border-[#EAD7D1] bg-blush-bg hover:border-roseaccent flex items-stretch">
                         <div class="w-16 shrink-0 border-r-2 border-dashed border-[#DFC3BC] flex flex-col items-center justify-center p-2 text-center">
-                            <span class="text-xl">✨</span>
-                            <span class="text-[9px] font-extrabold tracking-wider text-roseaccent mt-0.5">KOMPLIT</span>
+                            <span class="text-xl">👑</span>
+                            <span class="text-[9px] font-extrabold tracking-wider text-roseaccent mt-0.5">SULTAN</span>
                         </div>
                         <div class="flex-1 p-2.5 sm:p-3 flex items-center justify-between gap-2 min-w-0">
                             <div class="min-w-0">
                                 <h3 class="font-heading font-bold text-xs sm:text-[13.5px] text-choco leading-snug">
-                                    Paket Komplit (Semua Jajanan) ✨
+                                    Paket Komplit Sultan 👑
                                 </h3>
                                 <p class="text-[11px] text-choco-light leading-tight mt-0.5">
-                                    Coklat Beryl's + Nabati + Mochi Puncak sekaligus!
+                                    Beryl's + Nabati + Mochi Puncak sekaligus!
                                 </p>
                             </div>
                             <span class="px-2.5 py-1 rounded-full bg-cream border border-blush-200 text-roseaccent text-[10px] font-extrabold shrink-0">
@@ -795,7 +1084,7 @@
 
         <!-- Footer Kecil -->
         <p class="text-center text-[11px] text-choco-light mt-3 font-semibold">
-            Dibuat khusus untuk mencairkan suasana bareng <span class="display-nickname text-choco">Kamu</span> 🍫🌸
+            Dibuat khusus untuk mencairkan suasana bareng <span class="display-nickname text-choco">Firyal Naila</span> 🍫🌸
         </p>
     </main>
 
@@ -830,9 +1119,9 @@
             <div class="space-y-3.5 text-left">
                 <div>
                     <label for="input-nickname" class="block text-xs font-bold text-choco mb-1">
-                        Nama Panggilan
+                        Nama Penerima
                     </label>
-                    <input type="text" id="input-nickname" placeholder="Default: Kamu"
+                    <input type="text" id="input-nickname" placeholder="Default: Firyal Naila"
                         class="w-full px-3.5 py-2.5 rounded-xl bg-blush-bg border border-blush-200 focus:border-roseaccent focus:outline-none text-sm text-choco">
                 </div>
 
@@ -846,7 +1135,7 @@
 
                 <div>
                     <label for="input-wa" class="block text-xs font-bold text-choco mb-1">
-                        Nomor WhatsApp (Format 628...)
+                        Nomor WhatsApp Pengirim (Format 628...)
                     </label>
                     <input type="tel" id="input-wa" placeholder="Contoh: 6281234567890"
                         class="w-full px-3.5 py-2.5 rounded-xl bg-blush-bg border border-blush-200 focus:border-roseaccent focus:outline-none text-sm text-choco">
@@ -910,39 +1199,81 @@
          LOGIKA JAVASCRIPT INTERAKTIF (BEBAS BUG & RESPONSIF)
          ===================================================================== -->
     <script>
-        const STORAGE_KEY = 'pesan_perdamaian_jajanan_v2';
+        const STORAGE_KEY = 'pesan_perdamaian_firyal_naila_v1';
 
         const DEFAULT_APOLOGY_MESSAGE =
-            "Maaf banget ya kalau ucapan atau sikapku kemarin sempat bikin kamu kurang nyaman atau bad mood. Niatku sama sekali nggak ke sana. Karena kita baru kenal, aku pengen banget jaga suasana tetap asyik dan bikin kamu nyaman ngobrol. Boleh ya kita baikan lagi?";
+            "Maaf banget ya Firyal kalau ucapan atau sikapku kemarin sempat bikin kamu kurang nyaman atau bad mood. Niatku sama sekali nggak ke sana. Karena kita baru kenal, aku pengen banget jaga suasana tetap asyik, santai, dan bikin kamu nyaman ngobrol tanpa ada rasa nggak enak. Boleh ya kita baikan lagi?";
 
         // State Utama Aplikasi
         const appState = {
             currentStage: 1,
             isOpeningEnvelope: false,
-            nickname: 'Kamu',
+            nickname: 'Firyal Naila',
             apologyMessage: '',
             whatsappNumber: '',
+            clickedPlushies: new Set(),
             tastedTreats: new Set(),
             runawayCount: 0,
             forgiveScale: 1,
-            lastClaimedVoucher: '1 Box Coklat Beryl\'s 🍫'
+            lastClaimedVoucher: '1 Box Coklat Beryl\'s'
         };
 
-        // Balasan Sopan & Hangat untuk 3 Jajanan Favorit
-        const treatSweetReplies = {
-            beryls: "Manisnya Coklat Beryl's semoga bisa langsung balikin senyum dan semangat kamu hari ini! 🍫✨",
-            nabati: "Renyah dan lumer kayak Nabati Coklat, semoga bad mood-nya langsung ikutan lumer ya! 🧇✨",
-            mochi: "Lembutnya Mochi Puncak siap nemenin waktu santai kamu biar nggak cemberut lagi! 🍡✨"
+        // Dialog Karakter Sopan & Lucu dari Kelima Boneka Kesayangan Firyal
+        const plushieDialogues = {
+            ommpy: {
+                icon: '🐘',
+                speaker: 'Ommpy (Gajah Abu-Abu)',
+                line: '"Kata Ommpy, belalai Ommpy udah siap nyapu semua bad mood Firyal hari ini. Yuk baikan lagi biar asyik ngobrolnya ✨"'
+            },
+            goompy: {
+                icon: '🐮',
+                speaker: 'Goompy (Sapi Bulat)',
+                line: '"Mooo~ Kata Goompy jangan cemberut lama-lama ya Firyal, nanti gemasnya kalah sama pipi bulat Goompy lho 🐮✨"'
+            },
+            munchkin: {
+                icon: '🐋',
+                speaker: 'General Munchkin Man (Orca & Paus)',
+                line: '"Lapor komandan Firyal! Pasukan Orca & Paus dari lautan siap mengawal misi perdamaian hari ini. Damai ya, Firyal? 🫡✨"'
+            },
+            jimbo: {
+                icon: '🐶',
+                speaker: 'Lil Jimbo (Golden Retriever)',
+                line: '"Guk! Lil Jimbo udah kibas-kibas ekor nih nungguin Firyal senyum lagi. Maafin ya, Firyal? 🐾✨"'
+            },
+            larry: {
+                icon: '👽',
+                speaker: 'Larry & Mini-Larry',
+                line: '"Bip-bop! Sinyal antena Larry dan Mini-Larry mendeteksi Firyal orangnya baik hati dan pemaaf. Yuk baikan! 🛸✨"'
+            }
+        };
+
+        // Balasan Sopan & Hangat untuk 3 Camilan Favorit
+        const treatDialogues = {
+            beryls: {
+                icon: '🍫',
+                speaker: 'Sogokan Coklat Beryl\'s',
+                line: '"Manisnya Coklat Beryl\'s semoga bisa langsung balikin senyum dan semangat Firyal hari ini! 🍫✨"'
+            },
+            nabati: {
+                icon: '🧇',
+                speaker: 'Sogokan Nabati Coklat',
+                line: '"Renyah dan lumer kayak Nabati Coklat, semoga bad mood-nya Firyal langsung ikutan lumer ya! 🧇✨"'
+            },
+            mochi: {
+                icon: '🍡',
+                speaker: 'Sogokan Mochi Puncak',
+                line: '"Lembutnya Mochi Puncak siap nemenin waktu santai Firyal biar nggak kesel lagi! 🍡✨"'
+            }
         };
 
         // Daftar Teks Lucu & Sopan untuk Tombol Lincah ("Masih kesel 😤")
         const runawayPhrases = [
-            "Jangan kesel lama-lama dong 😅",
+            "Jangan kesel lama-lama dong Firyal 😅",
+            "Lil Jimbo & Larry ikut bujuk nih 🐶👽",
             "Tambah Coklat Beryl's nih? 🍫",
             "Mochi Puncak-nya udah siap lho 🍡",
-            "Eits, tombolnya geser sendiri ✨",
-            "Nabati Coklat-nya ikut nungguin 🧇",
-            "Klik yang sebelah aja ya 😊"
+            "Ommpy & Goompy ikutan geser tombolnya ✨",
+            "Klik yang sebelah aja ya Firyal 😊"
         ];
 
         // =====================================================================
@@ -981,7 +1312,6 @@
                 openBtn.classList.add('opacity-85');
             }
 
-            // Jalankan animasi tutup amplop terbuka dan surat naik ke atas selama 700ms, lalu pindah ke Tahap 2
             setTimeout(() => {
                 goToStage(2);
                 appState.isOpeningEnvelope = false;
@@ -991,18 +1321,15 @@
         function goToStage(stageNumber) {
             appState.currentStage = stageNumber;
 
-            // Sembunyikan semua tahap terlebih dahulu
             document.querySelectorAll('.stage-section').forEach(sec => {
                 sec.classList.remove('active');
             });
 
-            // Tampilkan tahap tujuan dengan transisi mulus
             const targetSection = document.getElementById(`stage-${stageNumber}`);
             if (targetSection) {
                 targetSection.classList.add('active');
             }
 
-            // Perbarui indikator titik tahap di atas kartu
             for (let i = 1; i <= 3; i++) {
                 const dot = document.getElementById(`stage-dot-${i}`);
                 if (!dot) continue;
@@ -1018,7 +1345,6 @@
                 }
             }
 
-            // Gulir lembut ke atas agar seluruh kartu terlihat utuh di layar HP
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1060,9 +1386,15 @@
         }
 
         function updateUIContent() {
-            const safeNick = (appState.nickname || '').trim() || 'Kamu';
+            const safeNick = (appState.nickname || '').trim() || 'Firyal Naila';
+            const firstName = safeNick.split(' ')[0] || 'Firyal';
+
             document.querySelectorAll('.display-nickname').forEach(el => {
                 el.textContent = safeNick;
+            });
+
+            document.querySelectorAll('.display-first-name').forEach(el => {
+                el.textContent = firstName;
             });
 
             const msgEl = document.getElementById('display-apology-message');
@@ -1075,7 +1407,7 @@
             const inputMsg = document.getElementById('input-message');
             const inputWa = document.getElementById('input-wa');
 
-            if (inputNick) inputNick.value = safeNick === 'Kamu' ? '' : safeNick;
+            if (inputNick) inputNick.value = safeNick === 'Firyal Naila' ? '' : safeNick;
             if (inputMsg) inputMsg.value = appState.apologyMessage || '';
             if (inputWa) inputWa.value = appState.whatsappNumber || '';
         }
@@ -1105,36 +1437,94 @@
         }
 
         // =====================================================================
-        // TAHAP 2: MENU JAJANAN FAVORIT & LEVEL MOOD ADEM (0% -> 100%)
+        // TAHAP 2: INTERAKSI 5 BONEKA (+15%) & 3 CAMILAN (+20%)
         // =====================================================================
-        function tasteTreat(treatKey) {
-            appState.tastedTreats.add(treatKey);
+        function interactPlushie(plushieKey) {
+            appState.clickedPlushies.add(plushieKey);
 
-            const card = document.getElementById(`treat-card-${treatKey}`);
-            const badge = document.getElementById(`badge-${treatKey}`);
-            if (card) card.classList.add('tasted');
+            const card = document.getElementById(`plushie-card-${plushieKey}`);
+            const badge = document.getElementById(`badge-plushie-${plushieKey}`);
+            const svgWrap = document.getElementById(`svg-wrap-${plushieKey}`);
+
+            if (card) card.classList.add('activated');
             if (badge) {
                 badge.classList.remove('hidden');
                 badge.classList.add('flex');
             }
+            if (svgWrap) {
+                svgWrap.classList.remove('plushie-bounce');
+                void svgWrap.offsetWidth; // trigger reflow agar animasi ulang tiap diklik
+                svgWrap.classList.add('plushie-bounce');
+            }
 
-            const count = appState.tastedTreats.size;
-            let percent = 0;
-            if (count === 1) percent = 33;
-            else if (count === 2) percent = 66;
-            else if (count >= 3) percent = 100;
+            const data = plushieDialogues[plushieKey];
+            if (data) {
+                updateDialogueBox(data.icon, data.speaker, data.line);
+            }
+
+            recalculateMoodMeter();
+        }
+
+        function tasteTreat(treatKey) {
+            appState.tastedTreats.add(treatKey);
+
+            const card = document.getElementById(`treat-card-${treatKey}`);
+            const badge = document.getElementById(`badge-treat-${treatKey}`);
+            const svgWrap = document.getElementById(`svg-wrap-${treatKey}`);
+
+            if (card) card.classList.add('activated');
+            if (badge) {
+                badge.classList.remove('hidden');
+                badge.classList.add('flex');
+            }
+            if (svgWrap) {
+                svgWrap.classList.remove('plushie-bounce');
+                void svgWrap.offsetWidth;
+                svgWrap.classList.add('plushie-bounce');
+            }
+
+            const data = treatDialogues[treatKey];
+            if (data) {
+                updateDialogueBox(data.icon, data.speaker, data.line);
+            }
+
+            recalculateMoodMeter();
+        }
+
+        function updateDialogueBox(icon, speaker, line) {
+            const iconEl = document.getElementById('dialogue-speaker-icon');
+            const speakerEl = document.getElementById('dialogue-speaker-name');
+            const textEl = document.getElementById('dialogue-text');
+
+            if (iconEl) iconEl.textContent = icon;
+            if (speakerEl) speakerEl.textContent = speaker;
+            if (textEl) textEl.textContent = line;
+        }
+
+        function recalculateMoodMeter() {
+            // +15% per boneka, +20% per camilan (maksimal 100%)
+            const rawPercent = (appState.clickedPlushies.size * 15) + (appState.tastedTreats.size * 20);
+            const percent = Math.min(100, rawPercent);
 
             const fillBar = document.getElementById('meter-fill-bar');
             const percentBadge = document.getElementById('meter-percent-badge');
+            const statusText = document.getElementById('meter-status-text');
 
             if (fillBar) fillBar.style.width = `${percent}%`;
             if (percentBadge) percentBadge.textContent = `${percent}%`;
 
-            const replyBox = document.getElementById('treat-reply-box');
-            const replyText = document.getElementById('treat-reply-text');
-            if (replyBox && replyText) {
-                replyText.textContent = treatSweetReplies[treatKey];
-                replyBox.classList.remove('hidden');
+            if (statusText) {
+                if (percent === 0) {
+                    statusText.textContent = 'Ketuk boneka kesayangan atau camilan favoritmu di bawah buat naikin mood adem! 👇';
+                } else if (percent < 45) {
+                    statusText.textContent = 'Mulai mencair dikit nih... lanjut ketuk boneka atau camilan lainnya! ✨';
+                } else if (percent < 85) {
+                    statusText.textContent = 'Wah, suasana udah makin hangat dan adem! 😊🌸';
+                } else if (percent < 100) {
+                    statusText.textContent = 'Dikit lagi 100%! Mood Firyal hampir full adem nih ✨';
+                } else {
+                    statusText.textContent = '100% Mood Adem Maksimal! Pasukan boneka & camilan sukses bertugas 🙌✨';
+                }
             }
         }
 
@@ -1145,18 +1535,15 @@
             const btnRunaway = document.getElementById('btn-runaway');
             if (!btnRunaway) return;
 
-            // Desktop hover
             btnRunaway.addEventListener('mouseenter', () => {
                 moveRunawayButton();
             });
 
-            // Mobile touch
             btnRunaway.addEventListener('touchstart', (e) => {
                 e.preventDefault();
                 moveRunawayButton();
             }, { passive: false });
 
-            // Fallback click
             btnRunaway.addEventListener('click', (e) => {
                 e.preventDefault();
                 moveRunawayButton();
@@ -1171,22 +1558,19 @@
 
             if (!arena || !btnRunaway || !btnForgive) return;
 
-            // Ganti teks tombol lincah secara bergantian
             const phrase = runawayPhrases[appState.runawayCount % runawayPhrases.length];
             btnRunaway.textContent = phrase;
             appState.runawayCount++;
 
-            // Perbesar tombol "Oke, dimaafin ✨" perlahan
             appState.forgiveScale = Math.min(1.36, 1 + appState.runawayCount * 0.075);
             btnForgive.style.transform = `scale(${appState.forgiveScale})`;
 
             if (helperText) {
                 helperText.textContent = appState.runawayCount >= 3
-                    ? "Tombol pink-nya udah makin besar tuh, pencet yang itu aja ya 😊✨"
+                    ? "Tombol pink-nya udah makin besar tuh, pencet yang itu aja ya Firyal 😊✨"
                     : "Eits, geser! Coba pencet tombol yang sebelah aja ya 😉";
             }
 
-            // Ubah ke posisi absolut di dalam arena agar bebas berpindah dengan aman
             btnRunaway.style.position = 'absolute';
             btnRunaway.style.marginTop = '0px';
 
@@ -1195,7 +1579,6 @@
             const runWidth = btnRunaway.offsetWidth;
             const runHeight = btnRunaway.offsetHeight;
 
-            // Hitung batas aman di bawah tombol "Oke, dimaafin ✨"
             const forgiveBottom = btnForgive.offsetTop + (btnForgive.offsetHeight * appState.forgiveScale);
             const padding = 10;
 
@@ -1244,7 +1627,8 @@
 
         function buildClaimWhatsAppMessage(voucherName) {
             const chosen = voucherName || appState.lastClaimedVoucher;
-            return `Halo! Aku udah baca pesannya dan udah dimaafin kok 😊 Aku mau klaim tiket jajanannya: *${chosen}* ya!`;
+            const senderName = (appState.nickname || '').trim() || 'Firyal Naila';
+            return `Halo! Ini ${senderName} 😊 Aku udah baca pesannya dan udah maafin kok. Aku mau klaim tiket jajanannya: *${chosen}* ya!`;
         }
 
         function openWhatsAppWithNumber(formatted62Number, voucherName) {
@@ -1325,7 +1709,7 @@
             const message = document.getElementById('input-message').value.trim();
             const wa = document.getElementById('input-wa').value.trim();
 
-            appState.nickname = nick || 'Kamu';
+            appState.nickname = nick || 'Firyal Naila';
             appState.apologyMessage = message;
             appState.whatsappNumber = formatTo62(wa);
 
@@ -1336,7 +1720,7 @@
         }
 
         function copyShareableLink() {
-            const nick = document.getElementById('input-nickname').value.trim() || 'Kamu';
+            const nick = document.getElementById('input-nickname').value.trim() || 'Firyal Naila';
             const message = document.getElementById('input-message').value.trim();
             const wa = formatTo62(document.getElementById('input-wa').value.trim());
 
@@ -1348,7 +1732,7 @@
             updateUIContent();
 
             const shareUrl = new URL(window.location.href.split('?')[0]);
-            if (nick && nick !== 'Kamu') shareUrl.searchParams.set('nama', nick);
+            if (nick && nick !== 'Firyal Naila') shareUrl.searchParams.set('nama', nick);
             if (message) shareUrl.searchParams.set('pesan', message);
             if (wa) shareUrl.searchParams.set('wa', wa);
 
